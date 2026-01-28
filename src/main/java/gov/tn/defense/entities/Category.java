@@ -1,10 +1,14 @@
 package gov.tn.defense.entities;
 
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name="categories")
@@ -16,6 +20,22 @@ public class Category {
 	private String name;
 	private int lotNumber;
 	
+	@Temporal(TemporalType.DATE)
+	private Date edition;
+		
+	public Date getEdition() {
+		return edition;
+	}
+	public void setEdition(Date edition) {
+		this.edition = edition;
+	}
+	public Category(int id, String name, int lotNumber, Date edition) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.lotNumber = lotNumber;
+		this.edition = edition;
+	}
 	public Category() {
 		super();
 		// TODO Auto-generated constructor stub
