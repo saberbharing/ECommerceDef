@@ -4,10 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import gov.tn.defense.entities.Category;
+import jakarta.transaction.Transactional;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
 	
@@ -62,8 +64,10 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 			@Param("edition") Date edition, 
 			@Param("lotNumber") int min);
 	
-	
-	
+	@Transactional
+	@Modifying
+	@Query(nativeQuery = true, value = "update categories set name=:name where id=:id")
+	int updateName(@Param("id") int id, @Param("name") String name);
 	
 	
 	
