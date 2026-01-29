@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import gov.tn.defense.entities.Category;
 import gov.tn.defense.exceptions.CategoryNotFoundException;
 import gov.tn.defense.repositories.CategoryRepository;
+import gov.tn.defense.services.CategoryService;
 
 @RestController
 @RequestMapping("/category")
@@ -26,9 +27,12 @@ public class CategoryController {
 	@Autowired
 	private CategoryRepository categoryRepository;
 
+	@Autowired
+	private CategoryService categoryService;
+
 	@PostMapping("/add")
 	public Category ajout(@RequestBody Category category) {
-		return categoryRepository.save(category);
+		return categoryService.ajout(category);
 	}
 
 	@GetMapping("/list")
@@ -58,10 +62,8 @@ public class CategoryController {
 			mod.setLotNumber(cat.getLotNumber());
 			mod.setEdition(cat.getEdition());
 
-			return new ResponseEntity<>(categoryRepository.save(mod), HttpStatus.OK) ;
-		}
-		else
-		{
+			return new ResponseEntity<>(categoryRepository.save(mod), HttpStatus.OK);
+		} else {
 			return new ResponseEntity<>(HttpStatusCode.valueOf(440));
 		}
 	}
@@ -75,12 +77,5 @@ public class CategoryController {
 	public int majCategoryName(@PathVariable int id, @PathVariable String name) {
 		return categoryRepository.updateName(id, name);
 	}
-
-	/*
-	 * @Autowired private CategoryService categoryService;
-	 * 
-	 * @GetMapping("/list") public List<Category> getAll() { return
-	 * categoryService.getAll(); }
-	 */
 
 }
