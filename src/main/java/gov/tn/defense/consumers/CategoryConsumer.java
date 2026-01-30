@@ -13,7 +13,7 @@ public class CategoryConsumer {
 	@Autowired
 	private KafkaTemplate<String, String> kafkaTemplate;
 	
-	@KafkaListener(topics = "categories", groupId = "cat-group")
+	//@KafkaListener(topics = "categories", groupId = "cat-group")
 	public void onCategoryCreated(@Payload String CatId, Acknowledgment ack)
 	{
 		System.out.println(Integer.parseInt(CatId));
